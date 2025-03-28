@@ -26,8 +26,8 @@ router.post("/",verifyUser,upload.single("image"),async(req,res)=>{
 
 router.get("/",verifyUser,async(req,res)=>{
     try{
-        const posts=await post.find().sort({createdAt:-1})
-        res.status(500).json(posts)
+        const posts=await post.find({user:req.user.id}).sort({createdAt:-1})
+        res.status(201).json(posts)
     }catch(error){
 res.status(500).json({message:"internal server issue",error})
     }
